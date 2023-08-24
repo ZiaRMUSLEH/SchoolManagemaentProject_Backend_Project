@@ -1,22 +1,19 @@
-package com.project.schoolmanagment.contactmessage.dto;
+package com.project.schoolmanagment.payload.response.message;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-@Builder(toBuilder = true)
+@Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResponseMessage<E> {
+public class ResponseMessage<T> {
 
-	private E object;
+	private T object;
 	private String message;
 	private HttpStatus httpStatus;
-
 
 }

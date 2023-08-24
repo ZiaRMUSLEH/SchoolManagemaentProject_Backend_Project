@@ -26,6 +26,8 @@ public class AdvisoryTeacher {
     private UserRole userRole;
 
 
+    @OneToOne
+    private Teacher teacher;
 
     @OneToMany(mappedBy = "advisoryTeacher", cascade = CascadeType.ALL)
     private List<Student> students;

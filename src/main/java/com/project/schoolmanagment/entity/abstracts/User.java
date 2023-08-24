@@ -8,20 +8,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @MappedSuperclass
-//pro
-// https://www.baeldung.com/lombok-builder-inheritance
+//properties will be used im child classes
+//since we do not have @Entity annotation here, this class will not be a table
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
+//is a kind of builder design pattern imp.
+//https://www.baeldung.com/lombok-builder-inheritance
 public abstract class User {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +40,7 @@ public abstract class User {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate birthDay;
 
-    private String birthplace;
+    private String birthPlace;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
@@ -54,6 +54,4 @@ public abstract class User {
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
-
-
 }

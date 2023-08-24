@@ -13,7 +13,6 @@ import javax.persistence.Entity;
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 @SuperBuilder
 public class ViceDean extends User {
 
