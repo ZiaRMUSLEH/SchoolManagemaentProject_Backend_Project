@@ -58,8 +58,8 @@ public class DeanController {
             @RequestParam(value = "sort") String sort,
             @RequestParam(defaultValue = "desc",value = "type") String type
     ){
-        //return deanService.getAllDeansByPage(page,size,sort,type);
-        return null;
+        return deanService.getAllDeansByPage(page,size,sort,type);
+
     }
 
 

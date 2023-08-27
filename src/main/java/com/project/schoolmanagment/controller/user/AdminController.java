@@ -47,8 +47,9 @@ public class AdminController {
 	//ALI
 	@GetMapping("/getAllAdmins")
 	public ResponseEntity<List<AdminResponse>>getAllAdmins(){
-		return null;
+		return ResponseEntity.ok(adminService.getAllAdmins());
 	}
+
 
 	//TODO
 	//ENES
@@ -68,10 +69,9 @@ public class AdminController {
 	//TODO
 	//NACI
 	@GetMapping("/getAdminByNameOrLastname")
-	public ResponseEntity<List<AdminResponse>>getAdminByNameOrLastname(@RequestParam String query){
-		return null;
+	public ResponseEntity<List<AdminResponse>>getAdminByNameOrLastname(@RequestParam String nameOrSurname){
+		return ResponseEntity.ok(adminService.getAdminByNameOrLastname(nameOrSurname));
 	}
-
 
 
 

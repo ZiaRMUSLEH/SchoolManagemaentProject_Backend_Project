@@ -13,6 +13,8 @@ import com.project.schoolmanagment.repository.user.DeanRepository;
 import com.project.schoolmanagment.service.helper.PageableHelper;
 import com.project.schoolmanagment.service.validator.UniquePropertyValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -65,5 +67,10 @@ public class DeanService {
                 .httpStatus(HttpStatus.OK)
                 .object(deanMapper.mapDeanToDeanResponse(savedDean))
                 .build();
+    }
+
+    public Page<DeanResponse> getAllDeansByPage(int page, int size, String sort, String type) {
+        Pageable pageable = pageableHelper.getPageableWithProperties(page,size,sort,type);
+        return deanRepository.findAll(pageable).map(deanMapper::mapDeanToDeanResponse);
     }
 }

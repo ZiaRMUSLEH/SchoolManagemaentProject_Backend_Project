@@ -98,4 +98,18 @@ public class AdminService {
         return adminRepository.findByUsername(username).stream().map(adminMapper::mapAdminToAdminResponse).collect(Collectors.toList());
     }
 
+    public List<AdminResponse> getAllAdmins(){
+        return adminRepository.findAll()
+                .stream()
+                .map(adminMapper::mapAdminToAdminResponse)
+                .collect(Collectors.toList());
+    }
+
+    public List<AdminResponse> getAdminByNameOrLastname(String nameOrSurname) {
+        List<Admin> admins = adminRepository.findByNameOrSurname(nameOrSurname,nameOrSurname);
+        if (admins.isEmpty()) {
+            throw new ResourceNotFoundException(String.format(ErrorMessages.NOT_FOUND_USER_MESSAGE_NAME_OR_LASTNAME, nameOrSurname));
+        }
+        return admins.stream().map(adminMapper::mapAdminToAdminResponse).collect(Collectors.toList());
+    }
 }
