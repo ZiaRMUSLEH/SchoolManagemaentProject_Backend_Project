@@ -31,7 +31,7 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
      */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
-        // error will be loggged in console and/or to a file
+        // error will be logged in console and/or to a file
         LOGGER.error("Unauthorized error : {}" , authException.getMessage());
         //we are setting the content type of the message
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);

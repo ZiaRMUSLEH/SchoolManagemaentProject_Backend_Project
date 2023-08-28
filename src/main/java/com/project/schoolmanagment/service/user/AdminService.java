@@ -4,7 +4,7 @@ import com.project.schoolmanagment.entity.concretes.user.Admin;
 import com.project.schoolmanagment.entity.enums.RoleType;
 import com.project.schoolmanagment.exception.ConflictException;
 import com.project.schoolmanagment.exception.ResourceNotFoundException;
-import com.project.schoolmanagment.payload.mappers.AdminMapper;
+import com.project.schoolmanagment.payload.mappers.user.AdminMapper;
 import com.project.schoolmanagment.payload.messages.ErrorMessages;
 import com.project.schoolmanagment.payload.messages.SuccessMessages;
 import com.project.schoolmanagment.payload.request.user.AdminRequest;
@@ -16,11 +16,11 @@ import com.project.schoolmanagment.service.validator.UniquePropertyValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,6 +32,7 @@ public class AdminService {
     private final UserRoleService userRoleService;
     private final UniquePropertyValidator uniquePropertyValidator;
     private final PageableHelper pageableHelper;
+    private final PasswordEncoder passwordEncoder;
 
     public ResponseMessage<AdminResponse>saveAdmin(AdminRequest adminRequest){
 
@@ -51,6 +52,7 @@ public class AdminService {
             admin.setBuiltIn(true);
         }
 
+        admin.setPassword(passwordEncoder.encode(adminRequest.getPassword()));
         Admin savedAdmin= adminRepository.save(admin);
 
         // we are returning response DTO by mapping the saved version of admin.

@@ -3,7 +3,7 @@ package com.project.schoolmanagment.service.user;
 import com.project.schoolmanagment.entity.concretes.user.Dean;
 import com.project.schoolmanagment.entity.enums.RoleType;
 import com.project.schoolmanagment.exception.ResourceNotFoundException;
-import com.project.schoolmanagment.payload.mappers.DeanMapper;
+import com.project.schoolmanagment.payload.mappers.user.DeanMapper;
 import com.project.schoolmanagment.payload.messages.ErrorMessages;
 import com.project.schoolmanagment.payload.messages.SuccessMessages;
 import com.project.schoolmanagment.payload.request.user.DeanRequest;
@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -32,6 +33,8 @@ public class DeanService {
 
     private final DeanMapper deanMapper;
 
+    private final PasswordEncoder passwordEncoder;
+
     private Dean isDeanExist(Long id){
         return deanRepository
                 .findById(id)
@@ -45,6 +48,7 @@ public class DeanService {
 
         Dean dean = deanMapper.mapDeanRequestToDean(deanRequest);
         dean.setUserRole(userRoleService.getUserRole(RoleType.MANAGER));
+        dean.setPassword(passwordEncoder.encode(deanRequest.getPassword()));
         Dean savedDean = deanRepository.save(dean);
 
         return ResponseMessage.<DeanResponse>builder()
