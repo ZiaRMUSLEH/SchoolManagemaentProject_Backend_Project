@@ -2,9 +2,14 @@ package com.project.schoolmanagment.repository.bussiness;
 
 import com.project.schoolmanagment.entity.concretes.businnes.EducationTerm;
 import com.project.schoolmanagment.entity.enums.Term;
+import com.project.schoolmanagment.payload.response.business.EducationTermResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
 
 @Repository
 public interface EducationTermRepository extends JpaRepository<EducationTerm , Long> {
@@ -15,4 +20,13 @@ public interface EducationTermRepository extends JpaRepository<EducationTerm , L
     boolean existsByTermAndYear(Term term, int year);
 
 
+    @Query("SELECT e FROM EducationTerm e WHERE  EXTRACT(YEAR FROM e.startDate) = ?1")
+    List<EducationTerm> findAllByStartDateYear(Integer year);
+
+
+    @Query("SELECT e FROM EducationTerm e WHERE e.startDate BETWEEN ?1 AND ?2")
+    List<EducationTerm> findEducationTermBetweenDates(LocalDate firstDate, LocalDate secondDate);
+
+
+    List<EducationTerm> getEducationTermsByStartDateAfter(LocalDate startDate);
 }

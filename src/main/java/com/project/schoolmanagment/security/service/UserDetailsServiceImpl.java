@@ -34,7 +34,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                     student.getName(),
                     false,
                     student.getPassword(),
-                    student.getUserRole().getRoleType().name()
+                    student.getUserRole().getRoleType().name(),
+                    student.getSsn()
             );
 
         } else if (teacher!=null) {
@@ -44,7 +45,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                     teacher.getName(),
                     false,
                     teacher.getPassword(),
-                    teacher.getUserRole().getRoleType().name()
+                    teacher.getUserRole().getRoleType().name(),
+                    teacher.getSsn()
             );
         } else if (admin!=null) {
             return new UserDetailsImpl(
@@ -53,7 +55,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                     admin.getName(),
                     false,
                     admin.getPassword(),
-                    admin.getUserRole().getRoleType().name()
+                    admin.getUserRole().getRoleType().name(),
+                    admin.getSsn()
             );
 
         } else if (dean!=null) {
@@ -63,7 +66,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                     dean.getName(),
                     false,
                     dean.getPassword(),
-                    dean.getUserRole().getRoleType().name()
+                    dean.getUserRole().getRoleType().name(),
+                    dean.getSsn()
             );
 
         } else if (viceDean!=null) {
@@ -73,7 +77,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                     viceDean.getName(),
                     false,
                     viceDean.getPassword(),
-                    viceDean.getUserRole().getRoleType().name()
+                    viceDean.getUserRole().getRoleType().name(),
+                    viceDean.getSsn()
             );
 
         }

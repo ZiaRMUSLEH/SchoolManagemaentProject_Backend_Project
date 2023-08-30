@@ -24,17 +24,19 @@ public class UserDetailsImpl implements UserDetails {
     private Boolean isAdvisor;
     @JsonIgnore
     private String password;
+    private String ssn;
     /**
      * to make it known and usable by SECURITY your roles must be extended.
      */
     private Collection<? extends GrantedAuthority>authorities;
 
-    public UserDetailsImpl(Long id, String username, String name, Boolean isAdvisor, String password,String role) {
+    public UserDetailsImpl(Long id, String username, String name, Boolean isAdvisor, String password,String role,String ssn) {
         this.id = id;
         this.username = username;
         this.name = name;
         this.isAdvisor = isAdvisor;
         this.password = password;
+        this.ssn = ssn;
         List<GrantedAuthority>grantedAuthorities = new ArrayList<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(role));
         this.authorities = grantedAuthorities;

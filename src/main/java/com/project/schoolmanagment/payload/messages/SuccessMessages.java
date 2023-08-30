@@ -15,4 +15,15 @@ public abstract class SuccessMessages {
     //ViceDean
     public static final String VICE_DEAN_SAVE = "ViceDean is Saved";
     public static final String VICE_DEAN_UPDATE = "ViceDean is Updated Successfully";
+
+    public static final String VICE_DEAN_DELETE = "ViceDean is Deleted Successfully";
+
+
+    //Education term
+    public static final String EDUCATION_TERM_SAVE = "Education Term is Saved";
+    public static final String EDUCATION_TERM_UPDATE = "Education Term is Updated Successfully";
+    public static final String EDUCATION_TERM_DELETE = "Education Term is Deleted Successfully";
+
+
+
 }

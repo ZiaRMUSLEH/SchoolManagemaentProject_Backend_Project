@@ -34,10 +34,10 @@ public class ViceDeanController {
 
     //ALI
     //@PreAuthorize("hasAnyAuthority('ADMIN','MANAGER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER')")
     @DeleteMapping("/delete/{userId}")
     public ResponseMessage deleteViceDeanByAdmin(@PathVariable Long userId){
-        //return viceDeanService.deleteViceDeanByUserId(userId);
-        return null;
+        return viceDeanService.deleteViceDeanByUserId(userId);
     }
 
     //SERHAN

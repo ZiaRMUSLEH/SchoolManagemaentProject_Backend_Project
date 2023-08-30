@@ -70,6 +70,17 @@ public class ViceDeanService {
     }
 
     public List<ViceDeanResponse> getAllViceDeans() {
-        return viceDeanRepository.findAll().stream().map(viceDeanMapper::mapViceDeanToViceDeanResponse).collect(Collectors.toList());
+        return viceDeanRepository.findAll().stream().map(viceDeanMapper::mapViceDeanToViceDeanResponse)
+                .collect(Collectors.toList());
+    }
+
+
+    public ResponseMessage<?> deleteViceDeanByUserId(Long viceDeanId) {
+        isViceDeanExist(viceDeanId);
+        viceDeanRepository.deleteById(viceDeanId);
+        return ResponseMessage.builder()
+                .message(SuccessMessages.VICE_DEAN_DELETE)
+                .httpStatus(HttpStatus.OK)
+                .build();
     }
 }

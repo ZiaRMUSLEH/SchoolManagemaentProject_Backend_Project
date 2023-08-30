@@ -46,6 +46,8 @@ public class AuthenticationService {
                 .token(token)
                 .name(userDetails.getName())
                 .role(userRole.get())
+                .ssn(userDetails.getSsn())
+                .isAdvisory(String.valueOf(userDetails.getIsAdvisor()))
                 .build());
     }
 

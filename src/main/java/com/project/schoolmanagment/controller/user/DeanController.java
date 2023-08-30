@@ -2,10 +2,12 @@ package com.project.schoolmanagment.controller.user;
 
 import com.project.schoolmanagment.payload.request.user.DeanRequest;
 import com.project.schoolmanagment.payload.response.message.ResponseMessage;
+import com.project.schoolmanagment.payload.response.user.AdminResponse;
 import com.project.schoolmanagment.payload.response.user.DeanResponse;
 import com.project.schoolmanagment.service.user.DeanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,15 +46,12 @@ public class DeanController {
         return null;
     }
 
-    //TODO SERHAN
     @GetMapping("/getAll")
     public List<DeanResponse> getAllDeans(){
-        //return deanService.getAllDeans();
-        return null;
+        return deanService.getAllDeans();
     }
 
 
-    //TODO ZIYA
     @GetMapping("/getAllDeansByPage")
     public Page<DeanResponse> getAllDeansByPage(
             @RequestParam(value = "page")int page,
@@ -62,6 +61,20 @@ public class DeanController {
     ){
         return deanService.getAllDeansByPage(page,size,sort,type);
 
+    }
+
+    //TODO SERHAN
+    @GetMapping("/getDeanByUserName/{username}")
+    public ResponseEntity<List<AdminResponse>> findDeanByUsername(@PathVariable String username){
+        //return ResponseEntity.ok(deanService.findDeanByUsername(username));
+        return null;
+    }
+
+
+    //TODO ZIYA
+    @GetMapping("/getDeanByName")
+    public ResponseEntity<List<DeanResponse>>getDeanByName(@RequestParam String nameOrSurname){
+        return ResponseEntity.ok(deanService.getDeanByName(nameOrSurname));
     }
 
 

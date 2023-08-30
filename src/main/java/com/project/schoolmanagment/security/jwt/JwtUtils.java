@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+/**
+ * Helper class for JWT ops.
+ */
 @Component
 public class JwtUtils {
 
@@ -21,10 +24,9 @@ public class JwtUtils {
     @Value("${backendapi.app.jwtSecret}")
     private String jwtSecret;
 
-
     public boolean validateJwtToken(String jwtToken){
         try {
-            Jwts.parser().setSigningKey(jwtToken).parseClaimsJwt(jwtToken);
+            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(jwtToken);
             return true;
         } catch (ExpiredJwtException e) {
             LOGGER.error("Jwt token is expired : {}", e.getMessage());
@@ -36,18 +38,21 @@ public class JwtUtils {
             LOGGER.error("Jwt Signature is invalid : {}", e.getMessage());
         } catch (IllegalArgumentException e) {
             LOGGER.error("Jwt is empty : {}", e.getMessage());
-        }catch (Exception e) {
-            LOGGER.error("Unknown issue occurred : {}", e.getMessage());
         }
         return false;
     }
 
-
     public String generateJwtToken(Authentication authentication){
+        // get info of logged-in user from context
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         return generateTokenFromUsername(userDetails.getUsername());
     }
 
+    /**
+     *
+     * @param username of the user
+     * @return signed JWT with algorithm and it's expiration date.
+     */
     public String generateTokenFromUsername(String username){
         return Jwts.builder()
                 .setSubject(username)
@@ -57,17 +62,17 @@ public class JwtUtils {
                 .compact();
     }
 
-    public String getUserNameFromJwtToken(String token){
+    /**
+     *
+     * @param token JWT token signed with algorithm.
+     * @return username for user
+     */
+    public String getUserNameFromJwtToken(String token) {
         return Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
     }
-
-
-
-
-
 
 }

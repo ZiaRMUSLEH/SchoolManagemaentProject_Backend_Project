@@ -75,6 +75,12 @@ public class AdminController {
 		return ResponseEntity.ok(adminService.getAdminByNameOrLastname(nameOrSurname));
 	}
 
+//	var jsonDaata = pm.response.json();
+//	var a = jsonDaata.token;
+//	if(a!=null){
+//	pm.globals.set("token",a);
+//		}
+
 
 
 

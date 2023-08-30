@@ -25,6 +25,10 @@ public abstract class ErrorMessages {
     public static final String EDUCATION_END_DATE_IS_EARLIER_THAN_START_DATE = "Error: The end date cannot be earlier than the start date " ;
     public static final String EDUCATION_TERM_IS_ALREADY_EXIST_BY_TERM_AND_YEAR_MESSAGE = "Error: Education Term with Term And Year already exist " ;
     public static final String EDUCATION_TERM_NOT_FOUND_MESSAGE = "Error: Education Term with id %s not found" ;
+    public static final String EDUCATION_TERM_NOT_FOUND_BY_YEAR_MESSAGE = "Error: Education Term with year %s not found" ;
+    public static final String EDUCATION_TERM_WRONG_DATE_FORMAT_MESSAGE = "Error: Wrong Date Format" ;
+
+
 
 
 
