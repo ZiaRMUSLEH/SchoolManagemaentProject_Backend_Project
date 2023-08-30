@@ -72,6 +72,7 @@ public class ViceDeanService {
     public List<ViceDeanResponse> getAllViceDeans() {
         return viceDeanRepository.findAll().stream().map(viceDeanMapper::mapViceDeanToViceDeanResponse)
                 .collect(Collectors.toList());
+
     }
 
 
