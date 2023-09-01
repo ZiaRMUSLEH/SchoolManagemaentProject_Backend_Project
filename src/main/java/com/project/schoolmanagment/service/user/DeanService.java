@@ -8,7 +8,6 @@ import com.project.schoolmanagment.payload.messages.ErrorMessages;
 import com.project.schoolmanagment.payload.messages.SuccessMessages;
 import com.project.schoolmanagment.payload.request.user.DeanRequest;
 import com.project.schoolmanagment.payload.response.message.ResponseMessage;
-import com.project.schoolmanagment.payload.response.user.AdminResponse;
 import com.project.schoolmanagment.payload.response.user.DeanResponse;
 import com.project.schoolmanagment.repository.user.DeanRepository;
 import com.project.schoolmanagment.service.helper.PageableHelper;
@@ -19,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -83,11 +83,36 @@ public class DeanService {
                 .collect(Collectors.toList());
     }
 
+
+
     public List<DeanResponse> getDeanByName(String nameOrSurname) {
-       List<Dean> deans =  deanRepository.findAllByNameOrUsername(nameOrSurname, nameOrSurname);
+        List<Dean> deans =  deanRepository.findAllByNameOrUsername(nameOrSurname,nameOrSurname);
         if (deans.isEmpty()) {
             throw new ResourceNotFoundException(String.format(ErrorMessages.NOT_FOUND_USER_MESSAGE_NAME_OR_LASTNAME, nameOrSurname));
         }
-              return deans.stream().map(deanMapper::mapDeanToDeanResponse).collect(Collectors.toList());
+        return deans.stream().map(deanMapper::mapDeanToDeanResponse).collect(Collectors.toList());
+    }
+
+    public DeanResponse findDeanByUsername(String username) {
+        Dean dean = deanRepository.findByUsernameEquals(username);
+        if(ObjectUtils.isEmpty(dean)){
+            throw new ResourceNotFoundException(String.format(ErrorMessages.NOT_FOUND_USER_MESSAGE_USERNAME, username));
+        }
+        return deanMapper.mapDeanToDeanResponse(dean);
+    }
+
+
+    public ResponseMessage deleteDeanById(Long userId) {
+        isDeanExist(userId);
+        deanRepository.deleteById(userId);
+        return ResponseMessage.builder()
+                .message(SuccessMessages.DEAN_DELETE)
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+
+    public DeanResponse getDeanById(Long userId) {
+
+        return deanMapper.mapDeanToDeanResponse(isDeanExist(userId));
     }
 }

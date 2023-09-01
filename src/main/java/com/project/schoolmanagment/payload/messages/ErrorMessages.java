@@ -28,7 +28,17 @@ public abstract class ErrorMessages {
     public static final String EDUCATION_TERM_NOT_FOUND_BY_YEAR_MESSAGE = "Error: Education Term with year %s not found" ;
     public static final String EDUCATION_TERM_WRONG_DATE_FORMAT_MESSAGE = "Error: Wrong Date Format" ;
 
+    //lesson
+    public static final String ALREADY_REGISTER_LESSON_MESSAGE = "Error: Lesson with lesson name %s already registered" ;
+    public static final String NOT_FOUND_LESSON_MESSAGE = "Error: Lesson with this field %s not found";
+    public static final String NOT_FOUND_LESSON_IN_LIST = "Error: Lesson not found in the list" ;
+    public static final String TIME_NOT_VALID_MESSAGE = "Error: incorrect time" ;
 
+
+    //lesson program
+    public static final String NOT_FOUND_LESSON_PROGRAM_MESSAGE = "Error: Lesson program with this field %s not found";
+    public static final String NOT_FOUND_LESSON_PROGRAM_MESSAGE_WITHOUT_ID_INFO = "Error: Lesson program with this field not found";
+    public static final String LESSON_PROGRAM_EXIST_MESSAGE = "Error: Course schedule can not be selected for the same hour and date" ;
 
 
 

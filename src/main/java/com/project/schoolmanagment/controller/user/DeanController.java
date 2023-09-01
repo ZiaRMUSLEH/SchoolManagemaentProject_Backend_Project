@@ -2,7 +2,6 @@ package com.project.schoolmanagment.controller.user;
 
 import com.project.schoolmanagment.payload.request.user.DeanRequest;
 import com.project.schoolmanagment.payload.response.message.ResponseMessage;
-import com.project.schoolmanagment.payload.response.user.AdminResponse;
 import com.project.schoolmanagment.payload.response.user.DeanResponse;
 import com.project.schoolmanagment.service.user.DeanService;
 import lombok.RequiredArgsConstructor;
@@ -34,16 +33,15 @@ public class DeanController {
     //TODO TUBA
     @DeleteMapping("/delete/{userId}")
     public ResponseMessage deleteDeanById(@PathVariable Long userId){
-        //return deanService.deleteDeanById(userId);
-        return null;
+        return deanService.deleteDeanById(userId);
     }
 
 
     //TODO TUBA
     @GetMapping("/getManagerById/{userId}")
-    public ResponseMessage<DeanResponse> getDeanById(@PathVariable Long userId){
-        //return deanService.getDeanById(userId);
-        return null;
+    public DeanResponse getDeanById(@PathVariable Long userId){
+        return deanService.getDeanById(userId);
+
     }
 
     @GetMapping("/getAll")
@@ -64,10 +62,9 @@ public class DeanController {
     }
 
     //TODO SERHAN
-    @GetMapping("/getDeanByUserName/{username}")
-    public ResponseEntity<List<AdminResponse>> findDeanByUsername(@PathVariable String username){
-        //return ResponseEntity.ok(deanService.findDeanByUsername(username));
-        return null;
+    @GetMapping("/getDeanByUsername/{username}")
+    public ResponseEntity<DeanResponse> findDeanByUsername(@PathVariable String username){
+        return ResponseEntity.ok(deanService.findDeanByUsername(username));
     }
 
 

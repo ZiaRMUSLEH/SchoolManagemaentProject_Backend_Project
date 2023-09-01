@@ -1,6 +1,5 @@
 package com.project.schoolmanagment.service.business;
 
-import com.project.schoolmanagment.contactmessage.messages.Messages;
 import com.project.schoolmanagment.entity.concretes.businnes.EducationTerm;
 import com.project.schoolmanagment.exception.ConflictException;
 import com.project.schoolmanagment.exception.ResourceNotFoundException;
@@ -10,7 +9,7 @@ import com.project.schoolmanagment.payload.messages.SuccessMessages;
 import com.project.schoolmanagment.payload.request.business.EducationTermRequest;
 import com.project.schoolmanagment.payload.response.business.EducationTermResponse;
 import com.project.schoolmanagment.payload.response.message.ResponseMessage;
-import com.project.schoolmanagment.repository.bussiness.EducationTermRepository;
+import com.project.schoolmanagment.repository.business.EducationTermRepository;
 import com.project.schoolmanagment.service.helper.PageableHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -73,7 +72,7 @@ public class EducationTermService {
 
     }
 
-    private EducationTerm isEducationTermExist(Long id){
+    public EducationTerm isEducationTermExist(Long id){
        return educationTermRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException(String.format(ErrorMessages.EDUCATION_TERM_NOT_FOUND_MESSAGE,id)));
     }

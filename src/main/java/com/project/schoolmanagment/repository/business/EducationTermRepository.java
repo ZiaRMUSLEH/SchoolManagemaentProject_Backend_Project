@@ -1,14 +1,12 @@
-package com.project.schoolmanagment.repository.bussiness;
+package com.project.schoolmanagment.repository.business;
 
 import com.project.schoolmanagment.entity.concretes.businnes.EducationTerm;
 import com.project.schoolmanagment.entity.enums.Term;
-import com.project.schoolmanagment.payload.response.business.EducationTermResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.List;
 
 @Repository
