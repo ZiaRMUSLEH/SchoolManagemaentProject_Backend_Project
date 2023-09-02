@@ -3,6 +3,7 @@ package com.project.schoolmanagment.entity.concretes.businnes;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.project.schoolmanagment.entity.concretes.user.Student;
 import com.project.schoolmanagment.entity.concretes.user.Teacher;
 import com.project.schoolmanagment.entity.enums.Day;
@@ -19,6 +20,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 public class LessonProgram {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

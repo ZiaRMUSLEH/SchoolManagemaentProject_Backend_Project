@@ -20,7 +20,6 @@ public class ContactMessageMapper {
 				.build();
 	}
 
-	//TODO please check builder design pattern
 	//I would give this method a name like mapContactMessageRequestToContactMessage
 	public ContactMessage requestToContactMessage(ContactMessageRequest contactMessageRequest){
 		return ContactMessage.builder()

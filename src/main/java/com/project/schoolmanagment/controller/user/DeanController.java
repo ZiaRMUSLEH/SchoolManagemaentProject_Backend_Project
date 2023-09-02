@@ -30,14 +30,14 @@ public class DeanController {
     public ResponseMessage<DeanResponse>updateDeanById(@PathVariable Long userId, @RequestBody @Valid DeanRequest deanRequest){
         return deanService.updateDeanById(userId,deanRequest);
     }
-    //TODO TUBA
+
     @DeleteMapping("/delete/{userId}")
     public ResponseMessage deleteDeanById(@PathVariable Long userId){
         return deanService.deleteDeanById(userId);
     }
 
 
-    //TODO TUBA
+
     @GetMapping("/getManagerById/{userId}")
     public DeanResponse getDeanById(@PathVariable Long userId){
         return deanService.getDeanById(userId);
@@ -61,14 +61,13 @@ public class DeanController {
 
     }
 
-    //TODO SERHAN
     @GetMapping("/getDeanByUsername/{username}")
     public ResponseEntity<DeanResponse> findDeanByUsername(@PathVariable String username){
         return ResponseEntity.ok(deanService.findDeanByUsername(username));
     }
 
 
-    //TODO ZIYA
+
     @GetMapping("/getDeanByName")
     public ResponseEntity<List<DeanResponse>>getDeanByName(@RequestParam String nameOrSurname){
         return ResponseEntity.ok(deanService.getDeanByName(nameOrSurname));

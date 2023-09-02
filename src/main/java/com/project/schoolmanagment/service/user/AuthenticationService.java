@@ -34,7 +34,7 @@ public class AuthenticationService {
         //we have to create a token for header
         String token = jwtUtils.generateJwtToken(authentication);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        //TODO ssn and isAdvisory properties are not set
+
         Set<String>roles = userDetails.getAuthorities()
                 .stream()
                 .map(GrantedAuthority::getAuthority)

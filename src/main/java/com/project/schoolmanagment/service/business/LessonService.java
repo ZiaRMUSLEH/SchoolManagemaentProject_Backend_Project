@@ -17,7 +17,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,9 +29,8 @@ public class LessonService {
     private final PageableHelper pageableHelper;
     private final LessonMapper lessonMapper;
 
-
-
     public ResponseMessage<LessonResponse> saveLesson(LessonRequest lessonRequest) {
+        //we need to validate that we do not have any existing lesson name as requested.
         isLessonExistByName(lessonRequest.getLessonName());
         Lesson savedLesson = lessonMapper.mapLessonRequestToLesson(lessonRequest);
         lessonRepository.save(savedLesson);
@@ -41,35 +42,30 @@ public class LessonService {
     }
 
     private boolean isLessonExistByName(String lessonName){
-        boolean isLessonExists = lessonRepository.existsLessonByLessonNameEqualsIgnoreCase(lessonName);
-
-        if(isLessonExists){
+        boolean isLessonExist = lessonRepository.existsLessonByLessonNameEqualsIgnoreCase(lessonName);
+        if(isLessonExist){
             throw new ConflictException(String.format(ErrorMessages.ALREADY_REGISTER_LESSON_MESSAGE,lessonName));
-        } else {
+        }else {
             return false;
         }
     }
-
     private Lesson isLessonExistById(Long id){
-        return lessonRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException(String.format(ErrorMessages.NOT_FOUND_LESSON_MESSAGE,id)));
+        return lessonRepository.findById(id).orElseThrow(()->new ResourceNotFoundException(String.format(ErrorMessages.NOT_FOUND_LESSON_MESSAGE,id)));
     }
 
     public ResponseMessage deleteLessonById(Long id) {
-
         isLessonExistById(id);
         lessonRepository.deleteById(id);
         return ResponseMessage.builder()
                 .message(SuccessMessages.LESSON_DELETE)
                 .httpStatus(HttpStatus.OK)
                 .build();
-
     }
 
-    public  ResponseMessage<LessonResponse> getLessonByLessonName(String lessonName) {
-        Lesson lesson = lessonRepository.getLessonByLessonName(lessonName)
-                .orElseThrow(()-> new ResourceNotFoundException(String.format(ErrorMessages.NOT_FOUND_LESSON_MESSAGE,lessonName)));
-
+    public ResponseMessage<LessonResponse> getLessonByLessonName(String lessonName) {
+        Lesson lesson = lessonRepository
+                .getLessonByLessonName(lessonName)
+                .orElseThrow(()->new ResourceNotFoundException(String.format(ErrorMessages.NOT_FOUND_LESSON_MESSAGE,lessonName)));
         return ResponseMessage.<LessonResponse>builder()
                 .object(lessonMapper.mapLessonToLessonResponse(lesson))
                 .httpStatus(HttpStatus.OK)
@@ -78,14 +74,35 @@ public class LessonService {
     }
 
     public Set<Lesson> getAllLessonByLessonId(Set<Long> idSet) {
+        //validate if id exist in DB
         idSet.forEach(this::isLessonExistById);
         return lessonRepository.getLessonByLessonIdIList(idSet);
     }
 
-
     public Page<LessonResponse> findLessonByPage(int page, int size, String sort, String type) {
         Pageable pageable = pageableHelper.getPageableWithProperties(page, size, sort, type);
         return lessonRepository.findAll(pageable).map(lessonMapper::mapLessonToLessonResponse);
+    }
+
+    public ResponseMessage<List<LessonResponse>> getLessonsByCreditScoreGreaterThan(Integer givenValue) {
+        List<LessonResponse> lessonResponse = lessonRepository.getLessonsByCreditScoreGreaterThanEqual(givenValue).
+                stream().
+                map(lessonMapper::mapLessonToLessonResponse).
+                collect(Collectors.toList());
+
+        if(lessonResponse.isEmpty()) {
+            return ResponseMessage.<List<LessonResponse>>builder()
+                    .message(String.format(ErrorMessages.NOT_FOUND_LESSON_MESSAGE, givenValue))
+                    .httpStatus(HttpStatus.BAD_REQUEST)
+                    .object(lessonResponse)
+                    .build();
+        }
+
+        return ResponseMessage.<List<LessonResponse>>builder()
+                .message(String.format(SuccessMessages.LESSON_FOUND, givenValue))
+                .httpStatus(HttpStatus.FOUND)
+                .object(lessonResponse)
+                .build();
     }
 
     public ResponseMessage<LessonResponse> updateLessonById(Long id, LessonRequest lessonRequest) {
@@ -104,10 +121,19 @@ public class LessonService {
                 .build();
     }
 
-    //Set<Integer> integerSet = new HashSet<>();
+    public List<LessonResponse> getAllLesson() {
+        return lessonRepository.findAll()
+                .stream()
+                .map(lessonMapper::mapLessonToLessonResponse)
+                .collect(Collectors.toList());
+    }
+}
+
+
+//Set<Integer> integerSet = new HashSet<>();
     //Set<Integer> integerSet = new TreeSet<>();
     //Set<Integer> integerSet = new LinkedHashSet<>();
 
     //List<Integer> integerList = new LinkedList<>();
     //List<Integer> integerList = new ArrayList<>();
-}
+

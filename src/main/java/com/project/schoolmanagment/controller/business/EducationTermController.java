@@ -59,10 +59,6 @@ public class EducationTermController {
         return educationTermService.getAllEducationTermByPage(page,size,sort,type);
     }
 
-    //TODO -> searchByYear
-    //TODO -> searchByStartDate ( two entry)
-    //TODO -> searchByDateSince ( one date entry )
-
 
     @GetMapping("/searchByYear/{year}")
     @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER','TEACHER')")

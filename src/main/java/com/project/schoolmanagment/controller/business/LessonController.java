@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -30,7 +31,6 @@ public class LessonController {
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER')")
     public ResponseMessage deleteLessonById(@PathVariable Long id){
-
         return lessonService.deleteLessonById(id);
     }
 
@@ -57,13 +57,27 @@ public class LessonController {
         return lessonService.findLessonByPage(page,size,sort,type);
     }
 
-    //TODO update lessonById
+    //TODO findByID -> ENES
+
+    //TODO getAllLessons by list -> ZIYA
+
+    @GetMapping("/getLessonsByCreditScoreGreaterThan")
+    @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER')")
+    public ResponseMessage<List<LessonResponse>> getLessonsByCreditScoreGreaterThan(@RequestParam(name = "creditScore") Integer givenValue) {
+        return lessonService.getLessonsByCreditScoreGreaterThan(givenValue);
+    }
+
     @PutMapping("/update/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER')")
     public ResponseMessage<LessonResponse> updateLessonById (@PathVariable Long id, @Valid @RequestBody LessonRequest lessonRequest){
         return lessonService.updateLessonById(id, lessonRequest);
     }
 
+    @GetMapping("/getAllLesson")
+    @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER')")
+    public List<LessonResponse> getAllLesson(){
+        return lessonService.getAllLesson();
+    }
 
 
 }

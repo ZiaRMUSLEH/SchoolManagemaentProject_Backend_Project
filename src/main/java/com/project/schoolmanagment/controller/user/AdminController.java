@@ -45,31 +45,27 @@ public class AdminController {
 		return ResponseEntity.ok(adminService.deleteById(id));
 	}
 
-	//TODO
-	//ALI
+
 	@GetMapping("/getAllAdmins")
 	public ResponseEntity<List<AdminResponse>>getAllAdmins(){
 		return ResponseEntity.ok(adminService.getAllAdmins());
 	}
 
 
-	//TODO
-	//ENES
+
 	@GetMapping("/getAdminById/{id}")
 	public ResponseEntity<AdminResponse>getAdminById(@PathVariable Long id)
 	{
 		return ResponseEntity.ok(adminService.findById(id));
 	}
 
-	//TODO
-	//ZIYA
+
 	@GetMapping("/getAdminByUserName/{username}")
 	public ResponseEntity<List<AdminResponse>>findAdminsByUsername(@PathVariable String username){
 		return ResponseEntity.ok(adminService.findAdminsByUsername(username));
 	}
 
-	//TODO
-	//NACI
+
 	@GetMapping("/getAdminByNameOrLastname")
 	public ResponseEntity<List<AdminResponse>>getAdminByNameOrLastname(@RequestParam String nameOrSurname){
 		return ResponseEntity.ok(adminService.getAdminByNameOrLastname(nameOrSurname));

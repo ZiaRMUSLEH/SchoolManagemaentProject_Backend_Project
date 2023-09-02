@@ -8,6 +8,8 @@ import com.project.schoolmanagment.repository.user.AdvisorTeacherRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AdvisorTeacherService {
@@ -21,6 +23,23 @@ public class AdvisorTeacherService {
         AdvisoryTeacher advisoryTeacher = advisorTeacherMapper.mapTeacherToAdvisorTeacher(teacher);
         advisoryTeacher.setUserRole(userRoleService.getUserRole(RoleType.ADVISORY_TEACHER));
         advisorTeacherRepository.save(advisoryTeacher);
+    }
+
+    public void updateAdvisoryTeacher(boolean status, Teacher teacher){
+        Optional<AdvisoryTeacher> advisoryTeacher = advisorTeacherRepository.getAdvisoryTeacherByTeacher_Id(teacher.getId());
+        AdvisoryTeacher.AdvisoryTeacherBuilder advisoryTeacherBuilder = AdvisoryTeacher.builder()
+                .teacher(teacher)
+                .userRole(userRoleService.getUserRole(RoleType.ADVISORY_TEACHER));
+        if(advisoryTeacher.isPresent()){
+            if(status){
+                advisoryTeacherBuilder.id(advisoryTeacher.get().getId());
+                advisorTeacherRepository.save(advisoryTeacherBuilder.build());
+            } else {
+                advisorTeacherRepository.deleteById(advisoryTeacher.get().getId());
+            }
+        } else {
+            advisorTeacherRepository.save(advisoryTeacherBuilder.build());
+        }
     }
 
 }
