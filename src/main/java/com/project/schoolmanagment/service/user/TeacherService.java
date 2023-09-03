@@ -41,7 +41,7 @@ public class TeacherService {
 
     private Teacher isTeacherExistById(Long id){
         return teacherRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("dfsf"));
+                .orElseThrow(()-> new ResourceNotFoundException(String.format(ErrorMessages.NOT_FOUND_USER_MESSAGE,id)));
     }
     public ResponseMessage<TeacherResponse> saveTeacher(TeacherRequest teacherRequest) {
 

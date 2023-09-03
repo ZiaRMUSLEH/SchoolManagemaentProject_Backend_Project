@@ -19,7 +19,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class LessonProgram {
+public class LessonProgram  {
 
 
     @Id
@@ -66,9 +66,6 @@ public class LessonProgram {
         teachers.forEach(teacher -> teacher.getLessonsProgramList().remove(this));
         students.forEach(student -> student.getLessonsProgramList().remove(this));
     }
-
-
-
 
 
 

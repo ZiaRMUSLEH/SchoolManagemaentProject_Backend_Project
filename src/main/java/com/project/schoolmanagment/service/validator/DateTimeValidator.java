@@ -7,8 +7,8 @@ import com.project.schoolmanagment.payload.messages.ErrorMessages;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class DateTimeValidator {
@@ -28,14 +28,40 @@ public class DateTimeValidator {
 		}
 	}
 
+//	private void checkTimeAndDayConflict(Set<LessonProgram> lessonPrograms){
+//		Set<String> uniqueLessonProgramsKey = new HashSet<>();
+//		Set<String> uniqueLessonProgramsDay = new HashSet<>();
+//		for(LessonProgram lessonProgram:lessonPrograms){
+//			String lessonProgramKey = lessonProgram.getDay().name()+lessonProgram.getStartTime();
+//			if(uniqueLessonProgramsKey.contains(lessonProgramKey)){
+//				throw new BadRequestException(ErrorMessages.LESSON_PROGRAM_EXIST_MESSAGE);
+//			}
+//			uniqueLessonProgramsKey.add(lessonProgramKey);
+//			String day = lessonProgram.getDay().name();
+//			if(uniqueLessonProgramsDay.contains(day)){
+//
+//
+//
+//				}
+//
+//				if (lessonPrograms.stream().anyMatch(t->t.getStopTime().isAfter(lessonProgram.getStartTime()))){
+//				throw new BadRequestException(ErrorMessages.LESSON_PROGRAM_EXIST_MESSAGE);
+//			}
+//
+//			} uniqueLessonProgramsDay.add(day);
+//
+//
+//		}
+//	}
+
 	private void checkTimeAndDayConflict(Set<LessonProgram> lessonPrograms){
 		Set<String> uniqueLessonProgramsKey = new HashSet<>();
 		for(LessonProgram lessonProgram:lessonPrograms){
-			String lessomProgramKey = lessonProgram.getDay().name()+lessonProgram.getStartTime();
-			if(uniqueLessonProgramsKey.contains(uniqueLessonProgramsKey)){
+			String lessonProgramKey = lessonProgram.getDay().name()+lessonProgram.getStartTime();
+			if(uniqueLessonProgramsKey.contains(lessonProgramKey)){
 				throw new BadRequestException(ErrorMessages.LESSON_PROGRAM_EXIST_MESSAGE);
 			}
-			uniqueLessonProgramsKey.add(lessomProgramKey);
+			uniqueLessonProgramsKey.add(lessonProgramKey);
 		}
 	}
 

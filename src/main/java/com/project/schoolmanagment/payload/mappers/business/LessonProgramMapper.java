@@ -33,6 +33,7 @@ public class LessonProgramMapper {
 				.stopTime(lessonProgram.getStopTime())
 				.lessonProgramId(lessonProgram.getId())
 				.lessonName(lessonProgram.getLessons())
+				.day(lessonProgram.getDay())
 				.build();
 	}
 }
