@@ -55,7 +55,7 @@ public class LessonProgram  {
 
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @ManyToMany(mappedBy = "lessonsProgramList",fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "lessonsProgramList",fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<Student> students;
 
 

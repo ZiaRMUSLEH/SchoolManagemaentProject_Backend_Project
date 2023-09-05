@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -165,5 +166,18 @@ public class StudentService {
             throw new ResourceNotFoundException(String.format(ErrorMessages.NOT_FOUND_USER_MESSAGE_USERNAME,username));
         }
         return student;
+    }
+
+
+    @Transactional
+    public ResponseMessage deleteStudentById(Long id) {
+        isStudentExist(id);
+        studentRepository.deleteById1(id);
+        return ResponseMessage.builder()
+                .message(SuccessMessages.STUDENT_DELETE)
+                .httpStatus(HttpStatus.OK)
+                .build();
+
+
     }
 }

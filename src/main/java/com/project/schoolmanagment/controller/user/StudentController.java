@@ -61,4 +61,10 @@ public class StudentController {
 
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER')")
+    @DeleteMapping("/delete/{id}")
+    public ResponseMessage deleteStudentById(@PathVariable Long id){
+        return studentService.deleteStudentById(id);
+    }
+
 }
