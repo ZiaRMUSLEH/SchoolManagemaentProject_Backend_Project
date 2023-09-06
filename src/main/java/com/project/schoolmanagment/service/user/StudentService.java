@@ -21,7 +21,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
@@ -172,7 +171,7 @@ public class StudentService {
     @Transactional
     public ResponseMessage deleteStudentById(Long id) {
         isStudentExist(id);
-        studentRepository.deleteById1(id);
+        studentRepository.deleteById(id);
         return ResponseMessage.builder()
                 .message(SuccessMessages.STUDENT_DELETE)
                 .httpStatus(HttpStatus.OK)
@@ -180,4 +179,10 @@ public class StudentService {
 
 
     }
+
+    public List<Student> getStudentListById(Long[] studentIds){
+        return studentRepository.findByIdsEquals(studentIds);
+    }
+
+
 }

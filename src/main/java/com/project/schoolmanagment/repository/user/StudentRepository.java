@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
@@ -38,9 +37,16 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     List<Student> getStudentByAdvisoryTeacher_UserName(String username);
 
 
+    @Override
     @Modifying
     @Query("DELETE FROM Student s WHERE s.id = :id")
-    void deleteById1(@Param("id") Long id);
+    void deleteById(@Param("id") Long id);
+
+    @Query("SELECT s FROM Student  s WHERE s.id IN :id")
+    List<Student>findByIdsEquals(Long [] id);
+
+
+
 
 
 

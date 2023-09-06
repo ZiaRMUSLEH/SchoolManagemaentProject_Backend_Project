@@ -66,4 +66,10 @@ public class AdvisorTeacherService {
                 .orElseThrow(()->new ResourceNotFoundException(String.format(ErrorMessages.NOT_FOUND_USER_MESSAGE,id)));
     }
 
+    public AdvisoryTeacher getAdvisorTeacherByUsername(String username){
+        return advisorTeacherRepository.findByTeacher_UsernameEquals(username)
+                .orElseThrow(()->new ResourceNotFoundException(String.format(ErrorMessages.NOT_FOUND_USER_MESSAGE_USERNAME,username)));
+
+    }
+
 }

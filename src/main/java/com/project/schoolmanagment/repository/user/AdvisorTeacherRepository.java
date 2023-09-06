@@ -1,5 +1,6 @@
 package com.project.schoolmanagment.repository.user;
 
+import com.project.schoolmanagment.entity.concretes.businnes.Meet;
 import com.project.schoolmanagment.entity.concretes.user.AdvisoryTeacher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -12,4 +13,7 @@ public interface AdvisorTeacherRepository extends JpaRepository<AdvisoryTeacher,
 
 
     Optional<AdvisoryTeacher> getAdvisoryTeacherByTeacher_Id (Long id);
+
+
+    Optional<AdvisoryTeacher> findByTeacher_UsernameEquals(String username);
 }
